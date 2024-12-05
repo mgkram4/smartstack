@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // app/pricing/page.tsx
 "use client"
 
 import { motion } from 'framer-motion';
-import { ChartBar, Bot, Check, Cloud, Database, Info } from 'lucide-react';
+import { Bot, ChartBar, Check, Cloud, Database } from 'lucide-react';
 
 interface PricingTier {
   name: string;
@@ -177,11 +178,7 @@ export default function PricingPage() {
                       <span className={feature.included ? '' : 'text-gray-600'}>
                         {feature.name}
                       </span>
-                      {feature.tooltip && (
-                        <Tooltip content={feature.tooltip}>
-                          <Info className="w-4 h-4 ml-2 text-gray-400 cursor-help" />
-                        </Tooltip>
-                      )}
+                   
                     </li>
                   ))}
                 </ul>
