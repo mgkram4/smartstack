@@ -9,10 +9,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        brand: {
+          dark: '#001F3F',    // Darkest blue
+          primary: '#003366', // Primary blue
+          medium: '#0066CC',  // Medium blue
+          light: '#E6F3FF',   // Lightest blue
+        },
+        accent: {
+          neural: '#004080',  // Neural network icon color
+        }
       },
     },
   },
   plugins: [],
 } satisfies Config;
+
+
+
