@@ -1,42 +1,20 @@
-// src/components/layout/Navigation/index.tsx
 "use client"
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 interface NavItem {
   title: string;
   href: string;
-  children?: {
-    title: string;
-    href: string;
-    description?: string;
-  }[];
 }
 
 const navItems: NavItem[] = [
   {
     title: 'Products',
-    href: '/products',
-    children: [
-      {
-        title: 'AI Development',
-        href: '/services/ai',
-        description: 'Custom AI solutions and integration'
-      },
-      {
-        title: 'Mobile Apps',
-        href: '/services/mobile',
-        description: 'Cross-platform mobile development'
-      },
-      {
-        title: 'Web Development',
-        href: '/services/web',
-        description: 'Full-stack web applications'
-      }
-    ]
+    href: '/products'
   },
   {
     title: 'Case Studies',
@@ -55,7 +33,6 @@ const navItems: NavItem[] = [
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,56 +50,28 @@ const Navigation = () => {
     }`}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link 
-            href="/"
-            className="flex items-center space-x-2"
-          >
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">S</span>
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="relative w-10 h-10 bg-white rounded-lg">
+              <Image
+                src="/logo2.png"
+                alt="Mark Garcia"
+                width={40}
+                height={40}
+                className="rounded-xl object-cover p-1"
+              />
             </div>
             <span className="text-white font-bold text-xl">SmartStack</span>
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <div
+              <Link
                 key={item.title}
-                className="relative group"
-                onMouseEnter={() => setActiveDropdown(item.title)}
-                onMouseLeave={() => setActiveDropdown(null)}
+                href={item.href}
+                className="text-gray-300 hover:text-white"
               >
-                <Link
-                  href={item.href}
-                  className="text-gray-300 hover:text-white flex items-center"
-                >
-                  {item.title}
-                  {item.children && (
-                    <ChevronDown className="w-4 h-4 ml-1 group-hover:rotate-180 transition-transform" />
-                  )}
-                </Link>
-
-                {/* Dropdown Menu */}
-                {item.children && activeDropdown === item.title && (
-                  <div className="absolute left-0 mt-2 w-64 bg-slate-800 rounded-lg shadow-lg border border-slate-700 overflow-hidden">
-                    <div className="p-2">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.title}
-                          href={child.href}
-                          className="block p-3 hover:bg-slate-700 rounded-lg transition-colors"
-                        >
-                          <div className="text-white font-medium">{child.title}</div>
-                          {child.description && (
-                            <div className="text-sm text-gray-400">{child.description}</div>
-                          )}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
+                {item.title}
+              </Link>
             ))}
 
             <Link
@@ -133,7 +82,6 @@ const Navigation = () => {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden text-white p-2"
@@ -142,7 +90,6 @@ const Navigation = () => {
           </button>
         </div>
 
-        {/* Mobile Menu */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -153,29 +100,14 @@ const Navigation = () => {
             >
               <div className="py-4 space-y-2">
                 {navItems.map((item) => (
-                  <div key={item.title}>
-                    <Link
-                      href={item.href}
-                      onClick={() => setIsOpen(false)}
-                      className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg"
-                    >
-                      {item.title}
-                    </Link>
-                    {item.children && (
-                      <div className="pl-6 mt-2 space-y-2">
-                        {item.children.map((child) => (
-                          <Link
-                            key={child.title}
-                            href={child.href}
-                            onClick={() => setIsOpen(false)}
-                            className="block px-4 py-2 text-gray-400 hover:text-white hover:bg-slate-800 rounded-lg"
-                          >
-                            {child.title}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                  <Link
+                    key={item.title}
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg"
+                  >
+                    {item.title}
+                  </Link>
                 ))}
                 <Link
                   href="/contact"

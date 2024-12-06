@@ -1,151 +1,108 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// app/pricing/page.tsx
 "use client"
 
 import { motion } from 'framer-motion';
-import { Bot, ChartBar, Check, Cloud, Database } from 'lucide-react';
+import { Bot, ChartBar, Check, Cloud, Database, Sparkles, Zap } from 'lucide-react';
 
-interface PricingTier {
-  name: string;
-  price: string;
-  description: string;
-  features: Array<{
-    name: string;
-    included: boolean;
-    tooltip?: string;
-  }>;
-  highlighted?: boolean;
-}
-
-interface AddOn {
-  name: string;
-  icon: any;
-  description: string;
-  pricing: string;
-  details: string[];
-}
-
-const pricingTiers: PricingTier[] = [
+const pricingTiers = [
   {
-    name: "Starter",
+    name: "Startup Accelerator",
     price: "$5k+",
-    description: "Basic web/mobile app with essential features",
+    description: "Launch your MVP with essential features",
+    badge: "Most Popular",
     features: [
-      { name: "Custom UI/UX Design", included: true },
+      { name: "Custom Design System", included: true },
       { name: "Responsive Development", included: true },
-      { name: "Basic Authentication", included: true },
-      { name: "Basic Database (up to 10k records)", included: true },
-      { name: "Standard Hosting", included: true },
-      { name: "Basic AI Chat Integration", included: false },
-      { name: "Advanced Analytics", included: false },
-      { name: "Custom API Development", included: false }
+      { name: "User Authentication", included: true },
+      { name: "Database Setup", included: true },
+      { name: "Cloud Hosting", included: true },
+      { name: "Basic AI Features", included: false },
+      { name: "Analytics Dashboard", included: false }
     ]
   },
   {
-    name: "Growth",
+    name: "AI Innovation",
     price: "$15k+",
-    description: "Advanced features with AI integration",
+    description: "Transform your business with AI",
     highlighted: true,
     features: [
-      { name: "Everything in Starter", included: true },
+      { name: "Everything in Startup", included: true },
       { name: "Custom AI Integration", included: true },
-      { name: "Advanced Database (up to 100k records)", included: true },
+      { name: "Advanced Database", included: true },
       { name: "API Development", included: true },
-      { name: "Premium Hosting", included: true },
-      { name: "Advanced Security", included: true },
-      { name: "Custom Analytics", included: true },
-      { name: "Priority Support", included: true }
+      { name: "Premium Infrastructure", included: true },
+      { name: "Real-time Analytics", included: true },
+      { name: "24/7 Support", included: true }
     ]
   },
   {
-    name: "Enterprise",
+    name: "Enterprise Suite",
     price: "Custom",
-    description: "Full-scale solutions with advanced AI",
+    description: "Full-scale digital transformation",
     features: [
-      { name: "Everything in Growth", included: true },
+      { name: "Everything in Innovation", included: true },
       { name: "Custom ML Models", included: true },
-      { name: "Unlimited Database", included: true },
+      { name: "Unlimited Scale", included: true },
       { name: "Advanced Security", included: true },
-      { name: "24/7 Support", included: true },
-      { name: "Custom Integrations", included: true },
-      { name: "Advanced AI Features", included: true },
-      { name: "Dedicated Account Manager", included: true }
+      { name: "Dedicated Support", included: true },
+      { name: "Custom Integration", included: true },
+      { name: "White-label Solution", included: true }
     ]
   }
 ];
 
-const addOns: AddOn[] = [
-  {
-    icon: Database,
-    name: "Database Scaling",
-    description: "Expand your database capacity and performance",
-    pricing: "From $200/month",
-    details: [
-      "Additional 100k records: $200/month",
-      "Advanced querying capabilities",
-      "Automated backups",
-      "Database monitoring"
-    ]
-  },
+const features = [
   {
     icon: Bot,
-    name: "AI Chatbot",
-    description: "Intelligent chatbot with GPT integration",
-    pricing: "From $500/month",
-    details: [
-      "GPT-4 Integration: $0.03/request",
-      "Custom training: $2k setup",
-      "Knowledge base integration",
-      "Multi-language support"
-    ]
+    name: "AI Integration",
+    description: "From chatbots to custom ML models",
+    pricing: ["GPT-4 Integration", "Custom Training", "Knowledge Base"],
+    highlight: true
+  },
+  {
+    icon: Database,
+    name: "Scalable Infrastructure",
+    description: "Enterprise-grade backend solutions",
+    pricing: ["High Performance", "Auto-scaling", "99.9% Uptime"]
   },
   {
     icon: ChartBar,
-    name: "Advanced Analytics",
-    description: "Comprehensive data analysis tools",
-    pricing: "From $300/month",
-    details: [
-      "Custom dashboards",
-      "Real-time monitoring",
-      "Predictive analytics",
-      "Export capabilities"
-    ]
+    name: "Analytics & Insights",
+    description: "Data-driven decision making",
+    pricing: ["Real-time Metrics", "Custom Dashboards", "Predictive Analytics"]
   },
   {
     icon: Cloud,
-    name: "Cloud Infrastructure",
-    description: "Scalable cloud hosting solutions",
-    pricing: "From $400/month",
-    details: [
-      "AWS/GCP hosting",
-      "Auto-scaling",
-      "CDN integration",
-      "DDoS protection"
-    ]
+    name: "Cloud Solutions",
+    description: "Secure and reliable hosting",
+    pricing: ["AWS/GCP", "CDN Integration", "DDoS Protection"]
   }
 ];
 
 export default function PricingPage() {
   return (
-    <main className="bg-gradient-to-br from-slate-900 via-blue-900/20 to-slate-900 min-h-screen">
-      {/* Main Pricing Section */}
+    <main className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 min-h-screen">
       <section className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-16"
+            className="text-center mb-16 relative"
           >
-            <h1 className="text-5xl font-bold text-white mb-6">
-              Transparent Pricing
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-indigo-600/10 to-blue-600/10 blur-3xl -z-10" />
+            <span className="inline-flex items-center gap-2 text-blue-400 font-medium mb-4 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20">
+              <Sparkles className="w-4 h-4" />
+              AI-Powered Solutions
+            </span>
+            <h1 className="text-6xl font-bold text-white mb-6 tracking-tight">
+              Scale Your Business with
+              <span className="bg-gradient-to-r from-blue-400 to-indigo-400 text-transparent bg-clip-text"> Smart Technology</span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Choose your base package and customize with add-ons
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+              From MVP to enterprise-scale solutions, we help you build and grow with cutting-edge technology
             </p>
           </motion.div>
 
-          {/* Core Packages */}
-          <div className="grid md:grid-cols-3 gap-8 mb-20">
+          <div className="grid lg:grid-cols-3 gap-8 mb-20">
             {pricingTiers.map((tier, index) => (
               <motion.div
                 key={tier.name}
@@ -153,20 +110,22 @@ export default function PricingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className={`relative bg-slate-800/50 rounded-xl p-8 ${
-                  tier.highlighted ? 'border-2 border-blue-500' : 'border border-slate-700'
-                }`}
+                className={`relative bg-gradient-to-br from-slate-800/80 to-slate-800/40 backdrop-blur-sm rounded-xl p-8 border ${
+                  tier.highlighted ? 'border-blue-500' : 'border-slate-700/50'
+                } hover:border-blue-500/50 transition-all group`}
               >
                 {tier.highlighted && (
                   <div className="absolute -top-4 left-0 right-0 text-center">
-                    <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm">
+                    <span className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-1 rounded-full text-sm font-medium">
                       Most Popular
                     </span>
                   </div>
                 )}
 
                 <h3 className="text-2xl font-bold text-white mb-2">{tier.name}</h3>
-                <p className="text-3xl font-bold text-blue-400 mb-4">{tier.price}</p>
+                <p className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 text-transparent bg-clip-text mb-4">
+                  {tier.price}
+                </p>
                 <p className="text-gray-300 mb-8">{tier.description}</p>
 
                 <ul className="space-y-4 mb-8">
@@ -178,46 +137,55 @@ export default function PricingPage() {
                       <span className={feature.included ? '' : 'text-gray-600'}>
                         {feature.name}
                       </span>
-                   
                     </li>
                   ))}
                 </ul>
 
                 <button className={`w-full py-3 rounded-lg ${
                   tier.highlighted
-                    ? 'bg-blue-500 hover:bg-blue-600 text-white'
+                    ? 'bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white'
                     : 'border border-blue-400 text-blue-400 hover:bg-blue-400/10'
-                } transition-colors`}>
+                } transition-all flex items-center justify-center gap-2 group`}>
                   Get Started
+                  <Zap className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </motion.div>
             ))}
           </div>
 
-          {/* Add-ons Section */}
           <div className="mb-20">
-            <h2 className="text-3xl font-bold text-white text-center mb-12">
-              Available Add-ons
-            </h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl font-bold text-white mb-4">
+                Enterprise-Grade Features
+              </h2>
+              <p className="text-gray-300 max-w-2xl mx-auto">
+                Built with scalability and performance in mind
+              </p>
+            </motion.div>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {addOns.map((addon, index) => (
+              {features.map((feature, index) => (
                 <motion.div
-                  key={addon.name}
+                  key={feature.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-slate-800/50 rounded-xl p-6"
+                  className="bg-gradient-to-br from-slate-800/80 to-slate-800/40 backdrop-blur-sm rounded-xl p-6 border border-slate-700/50 hover:border-blue-500/50 transition-all group"
                 >
-                  <addon.icon className="w-8 h-8 text-blue-400 mb-4" />
-                  <h3 className="text-xl font-bold text-white mb-2">{addon.name}</h3>
-                  <p className="text-gray-300 mb-4">{addon.description}</p>
-                  <p className="text-blue-400 font-bold mb-4">{addon.pricing}</p>
+                  <feature.icon className="w-8 h-8 text-blue-400 mb-4" />
+                  <h3 className="text-xl font-bold text-white mb-2">{feature.name}</h3>
+                  <p className="text-gray-300 mb-4">{feature.description}</p>
                   <ul className="space-y-2">
-                    {addon.details.map((detail) => (
-                      <li key={detail} className="text-gray-400 text-sm flex items-center">
+                    {feature.pricing.map((item) => (
+                      <li key={item} className="text-gray-400 text-sm flex items-center">
                         <span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2" />
-                        {detail}
+                        {item}
                       </li>
                     ))}
                   </ul>
@@ -229,4 +197,4 @@ export default function PricingPage() {
       </section>
     </main>
   );
-};
+}
