@@ -1,3 +1,6 @@
+"use client"
+
+
 import { addDays, format } from 'date-fns';
 import { motion } from 'framer-motion';
 import { useState } from 'react';

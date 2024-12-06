@@ -1,13 +1,13 @@
 "use client"
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Brain, Code, Database, Lock, Smartphone, Star, Users, BarChart, Globe } from 'lucide-react';
+import { ArrowRight, BarChart, Brain, Code, Database, Lock, Smartphone, Star, Users } from 'lucide-react';
+import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
 
 const ModernLanding = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-[#001F3F] to-gray-900">
-      {/* Hero Section */}
       <section className="pt-32 pb-20 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div 
@@ -27,17 +27,23 @@ const ModernLanding = () => {
               that drive growth and innovation.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <button className="group bg-gradient-to-r from-[#0066CC] to-[#003366] text-white px-8 py-4 rounded-lg flex items-center justify-center">
+              <Link
+                href="/contact"
+                className="group bg-gradient-to-r from-[#0066CC] to-[#003366] text-white px-8 py-4 rounded-lg flex items-center justify-center"
+              >
                 Start Your Project
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button className="border border-[#0066CC] text-white px-8 py-4 rounded-lg hover:bg-[#0066CC]/10 transition">
+              </Link>
+              <Link 
+                href="/CaseStudies"
+                className="border border-[#0066CC] text-white px-8 py-4 rounded-lg hover:bg-[#0066CC]/10 transition"
+              >
                 View Our Work
-              </button>
+              </Link>
             </div>
           </motion.div>
 
-          {/* Feature Grid */}
+          {/* [Previous Feature Grid section remains identical] */}
           <div className="grid md:grid-cols-3 gap-8 mt-20">
             {[
               {
@@ -84,7 +90,7 @@ const ModernLanding = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
+      {/* [Previous Stats Section remains identical] */}
       <section className="py-20 bg-black/30">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -110,7 +116,7 @@ const ModernLanding = () => {
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* [Previous Services Section remains identical] */}
       <section className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 relative">
           <motion.div
@@ -182,13 +188,15 @@ const ModernLanding = () => {
                       </motion.li>
                     ))}
                   </ul>
-                  <button className={`mt-8 w-full py-3 rounded-lg ${
-                    service.featured
-                      ? 'bg-gradient-to-r from-[#0066CC] to-[#003366] text-white'
-                      : 'border border-[#0066CC] text-[#0066CC] hover:bg-[#0066CC]/10'
-                  } transition`}>
-                    Get Started
-                  </button>
+                  <Link href="/contact">
+                    <button className={`mt-8 w-full py-3 rounded-lg ${
+                      service.featured
+                        ? 'bg-gradient-to-r from-[#0066CC] to-[#003366] text-white'
+                        : 'border border-[#0066CC] text-[#0066CC] hover:bg-[#0066CC]/10'
+                    } transition`}>
+                      Get Started
+                    </button>
+                  </Link>
                 </motion.div>
               );
             })}
@@ -196,7 +204,7 @@ const ModernLanding = () => {
         </div>
       </section>
 
-      {/* Process Section */}
+      {/* [Previous Process Section remains identical] */}
       <section className="py-20 bg-black/30">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
@@ -245,7 +253,7 @@ const ModernLanding = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* [Previous Testimonials Section remains identical] */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
@@ -320,15 +328,16 @@ const ModernLanding = () => {
               Ready to Transform Your Business?
             </h2>
             <p className="text-blue-100 mb-8">
-              Let's discuss how we can help you achieve your goals with our scalable solutions.
+              Lets discuss how we can help you achieve your goals with our scalable solutions.
             </p>
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white text-[#0066CC] px-8 py-4 rounded-lg hover:bg-blue-50 transition"
-            >
-              Schedule a Consultation
-            </motion.button>
+            <Link href="/contact">
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-white text-[#0066CC] px-8 py-4 rounded-lg hover:bg-blue-50 transition">
+                Schedule a Consultation
+              </motion.button>
+            </Link>
           </motion.div>
         </div>
       </section>
