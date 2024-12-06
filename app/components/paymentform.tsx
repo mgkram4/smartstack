@@ -1,4 +1,3 @@
-import { Alert, AlertDescription } from '@/components/ui/alert';
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { PaymentIntent, StripeError } from '@stripe/stripe-js';
 import { AlertCircle } from 'lucide-react';
@@ -13,6 +12,15 @@ interface PaymentConfirmation {
   error?: StripeError;
   paymentIntent?: PaymentIntent;
 }
+
+const ErrorAlert = ({ message }: { message: string }) => (
+  <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-md">
+    <div className="flex items-center">
+      <AlertCircle className="h-5 w-5 text-red-500 mr-2" />
+      <p className="text-red-700">{message}</p>
+    </div>
+  </div>
+);
 
 export default function PaymentForm({ amount, onSuccess }: PaymentFormProps) {
   const stripe = useStripe();
@@ -73,24 +81,14 @@ export default function PaymentForm({ amount, onSuccess }: PaymentFormProps) {
 
   // Show configuration error if present
   if (configError) {
-    return (
-      <Alert variant="destructive">
-        <AlertCircle className="h-4 w-4" />
-        <AlertDescription>{configError}</AlertDescription>
-      </Alert>
-    );
+    return <ErrorAlert message={configError} />;
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <PaymentElement />
       
-      {error && (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      )}
+      {error && <ErrorAlert message={error} />}
       
       <button
         type="submit"
