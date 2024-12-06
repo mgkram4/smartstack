@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, BarChart, Brain, Code, Database, Lock, Smartphone, Star, Users } from 'lucide-react';
 import Link from 'next/link';
-import { useInView } from 'react-intersection-observer';
 
 const ModernLanding = () => {
   return (
@@ -43,7 +42,6 @@ const ModernLanding = () => {
             </div>
           </motion.div>
 
-          {/* [Previous Feature Grid section remains identical] */}
           <div className="grid md:grid-cols-3 gap-8 mt-20">
             {[
               {
@@ -61,36 +59,28 @@ const ModernLanding = () => {
                 title: "Mobile First",
                 description: "Cross-platform Apps"
               }
-            ].map((feature, index) => {
-              const [ref, inView] = useInView({
-                triggerOnce: true,
-                threshold: 0.1
-              });
-
-              return (
-                <motion.div
-                  key={index}
-                  ref={ref}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ delay: index * 0.2 }}
-                  className="relative group"
-                >
-                  <div className="relative bg-white/5 border border-white/10 rounded-xl p-8 hover:border-[#0066CC]/50 transition-all duration-300">
-                    <div className="text-[#0066CC] mb-4">
-                      {feature.icon}
-                    </div>
-                    <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
-                    <p className="text-gray-400">{feature.description}</p>
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+                className="relative group"
+              >
+                <div className="relative bg-white/5 border border-white/10 rounded-xl p-8 hover:border-[#0066CC]/50 transition-all duration-300">
+                  <div className="text-[#0066CC] mb-4">
+                    {feature.icon}
                   </div>
-                </motion.div>
-              );
-            })}
+                  <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
+                  <p className="text-gray-400">{feature.description}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* [Previous Stats Section remains identical] */}
       <section className="py-20 bg-black/30">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -116,7 +106,6 @@ const ModernLanding = () => {
         </div>
       </section>
 
-      {/* [Previous Services Section remains identical] */}
       <section className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 relative">
           <motion.div
@@ -150,61 +139,54 @@ const ModernLanding = () => {
                 price: "Custom",
                 features: ["Scalable Architecture", "Security Implementation", "Performance Optimization", "24/7 Support"]
               }
-            ].map((service, index) => {
-              const [ref, inView] = useInView({
-                triggerOnce: true,
-                threshold: 0.1
-              });
-
-              return (
-                <motion.div
-                  key={index}
-                  ref={ref}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ delay: index * 0.2 }}
-                  className={`relative ${
-                    service.featured ? 'border-2 border-[#0066CC]' : 'border border-white/10'
-                  } rounded-xl bg-white/5 p-8`}
-                >
-                  <div className={`inline-block p-3 rounded-lg ${
-                    service.featured ? 'bg-[#0066CC]' : 'bg-white/10'
-                  } mb-6`}>
-                    {service.icon}
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">{service.title}</h3>
-                  <p className="text-[#0066CC] font-bold mb-6">{service.price}</p>
-                  <ul className="space-y-4">
-                    {service.features.map((feature, i) => (
-                      <motion.li 
-                        key={i} 
-                        className="flex items-center text-gray-300"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                        transition={{ delay: i * 0.1 }}
-                      >
-                        <span className="w-1.5 h-1.5 bg-[#0066CC] rounded-full mr-2" />
-                        {feature}
-                      </motion.li>
-                    ))}
-                  </ul>
-                  <Link href="/contact">
-                    <button className={`mt-8 w-full py-3 rounded-lg ${
-                      service.featured
-                        ? 'bg-gradient-to-r from-[#0066CC] to-[#003366] text-white'
-                        : 'border border-[#0066CC] text-[#0066CC] hover:bg-[#0066CC]/10'
-                    } transition`}>
-                      Get Started
-                    </button>
-                  </Link>
-                </motion.div>
-              );
-            })}
+            ].map((service, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+                className={`relative ${
+                  service.featured ? 'border-2 border-[#0066CC]' : 'border border-white/10'
+                } rounded-xl bg-white/5 p-8`}
+              >
+                <div className={`inline-block p-3 rounded-lg ${
+                  service.featured ? 'bg-[#0066CC]' : 'bg-white/10'
+                } mb-6`}>
+                  {service.icon}
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-2">{service.title}</h3>
+                <p className="text-[#0066CC] font-bold mb-6">{service.price}</p>
+                <ul className="space-y-4">
+                  {service.features.map((feature, i) => (
+                    <motion.li 
+                      key={i} 
+                      className="flex items-center text-gray-300"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1 }}
+                    >
+                      <span className="w-1.5 h-1.5 bg-[#0066CC] rounded-full mr-2" />
+                      {feature}
+                    </motion.li>
+                  ))}
+                </ul>
+                <Link href="/contact">
+                  <button className={`mt-8 w-full py-3 rounded-lg ${
+                    service.featured
+                      ? 'bg-gradient-to-r from-[#0066CC] to-[#003366] text-white'
+                      : 'border border-[#0066CC] text-[#0066CC] hover:bg-[#0066CC]/10'
+                  } transition`}>
+                    Get Started
+                  </button>
+                </Link>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* [Previous Process Section remains identical] */}
       <section className="py-20 bg-black/30">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
@@ -223,37 +205,29 @@ const ModernLanding = () => {
               { icon: <Brain className="w-8 h-8" />, title: "Strategy", description: "Planning the solution" },
               { icon: <Code className="w-8 h-8" />, title: "Development", description: "Building your product" },
               { icon: <BarChart className="w-8 h-8" />, title: "Launch", description: "Deploying & optimizing" }
-            ].map((step, index) => {
-              const [ref, inView] = useInView({
-                triggerOnce: true,
-                threshold: 0.1
-              });
-
-              return (
-                <motion.div
-                  key={index}
-                  ref={ref}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ delay: index * 0.2 }}
-                  className="text-center relative"
-                >
-                  <div className="inline-block p-4 rounded-full bg-[#0066CC]/20 mb-4">
-                    <div className="text-[#0066CC]">{step.icon}</div>
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
-                  <p className="text-gray-400">{step.description}</p>
-                  {index < 3 && (
-                    <div className="hidden md:block absolute top-12 left-[60%] w-[80%] border-t-2 border-dashed border-[#0066CC]/30" />
-                  )}
-                </motion.div>
-              );
-            })}
+            ].map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+                className="text-center relative"
+              >
+                <div className="inline-block p-4 rounded-full bg-[#0066CC]/20 mb-4">
+                  <div className="text-[#0066CC]">{step.icon}</div>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
+                <p className="text-gray-400">{step.description}</p>
+                {index < 3 && (
+                  <div className="hidden md:block absolute top-12 left-[60%] w-[80%] border-t-2 border-dashed border-[#0066CC]/30" />
+                )}
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* [Previous Testimonials Section remains identical] */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
@@ -283,39 +257,31 @@ const ModernLanding = () => {
                 author: "Emma Williams",
                 role: "Product Manager, StartupX"
               }
-            ].map((testimonial, index) => {
-              const [ref, inView] = useInView({
-                triggerOnce: true,
-                threshold: 0.1
-              });
-
-              return (
-                <motion.div
-                  key={index}
-                  ref={ref}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ delay: index * 0.2 }}
-                  className="bg-white/5 p-8 rounded-xl border border-white/10"
-                >
-                  <div className="flex gap-2 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-[#0066CC] text-[#0066CC]" />
-                    ))}
-                  </div>
-                  <p className="text-gray-300 mb-6">{testimonial.quote}</p>
-                  <div>
-                    <div className="font-bold text-white">{testimonial.author}</div>
-                    <div className="text-gray-400">{testimonial.role}</div>
-                  </div>
-                </motion.div>
-              );
-            })}
+            ].map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+                className="bg-white/5 p-8 rounded-xl border border-white/10"
+              >
+                <div className="flex gap-2 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-[#0066CC] text-[#0066CC]" />
+                  ))}
+                </div>
+                <p className="text-gray-300 mb-6">{testimonial.quote}</p>
+                <div>
+                  <div className="font-bold text-white">{testimonial.author}</div>
+                  <div className="text-gray-400">{testimonial.role}</div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-20">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <motion.div
