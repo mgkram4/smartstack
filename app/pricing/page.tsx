@@ -1,200 +1,229 @@
 "use client"
 
 import { motion } from 'framer-motion';
-import { Bot, ChartBar, Check, Cloud, Database, Sparkles, Zap } from 'lucide-react';
+import { Check, Mail } from 'lucide-react';
 
-const pricingTiers = [
-  {
-    name: "Startup Accelerator",
-    price: "$5k+",
-    description: "Launch your MVP with essential features",
-    badge: "Most Popular",
-    features: [
-      { name: "Custom Design System", included: true },
-      { name: "Responsive Development", included: true },
-      { name: "User Authentication", included: true },
-      { name: "Database Setup", included: true },
-      { name: "Cloud Hosting", included: true },
-      { name: "Basic AI Features", included: false },
-      { name: "Analytics Dashboard", included: false }
-    ]
-  },
-  {
-    name: "AI Innovation",
-    price: "$15k+",
-    description: "Transform your business with AI",
-    highlighted: true,
-    features: [
-      { name: "Everything in Startup", included: true },
-      { name: "Custom AI Integration", included: true },
-      { name: "Advanced Database", included: true },
-      { name: "API Development", included: true },
-      { name: "Premium Infrastructure", included: true },
-      { name: "Real-time Analytics", included: true },
-      { name: "24/7 Support", included: true }
-    ]
-  },
-  {
-    name: "Enterprise Suite",
-    price: "Custom",
-    description: "Full-scale digital transformation",
-    features: [
-      { name: "Everything in Innovation", included: true },
-      { name: "Custom ML Models", included: true },
-      { name: "Unlimited Scale", included: true },
-      { name: "Advanced Security", included: true },
-      { name: "Dedicated Support", included: true },
-      { name: "Custom Integration", included: true },
-      { name: "White-label Solution", included: true }
-    ]
-  }
+const basicFeatures = [
+  "5-7 Pages",
+  "Mobile Responsive",
+  "Contact Forms",
+  "Basic SEO",
+  "Social Media Integration"
 ];
 
-const features = [
-  {
-    icon: Bot,
-    name: "AI Integration",
-    description: "From chatbots to custom ML models",
-    pricing: ["GPT-4 Integration", "Custom Training", "Knowledge Base"],
-    highlight: true
-  },
-  {
-    icon: Database,
-    name: "Scalable Infrastructure",
-    description: "Enterprise-grade backend solutions",
-    pricing: ["High Performance", "Auto-scaling", "99.9% Uptime"]
-  },
-  {
-    icon: ChartBar,
-    name: "Analytics & Insights",
-    description: "Data-driven decision making",
-    pricing: ["Real-time Metrics", "Custom Dashboards", "Predictive Analytics"]
-  },
-  {
-    icon: Cloud,
-    name: "Cloud Solutions",
-    description: "Secure and reliable hosting",
-    pricing: ["AWS/GCP", "CDN Integration", "DDoS Protection"]
-  }
+const midFeatures = [
+  "Custom Design",
+  "User Authentication",
+  "Database Integration",
+  "Analytics Dashboard",
+  "Payment Processing",
+  "Basic Chatbot"
+];
+
+const enterpriseFeatures = [
+  "Custom AI/ML Models",
+  "Advanced Analytics",
+  "Custom API Development",
+  "High-Performance Setup",
+  "Advanced Security",
+  "Multi-Environment"
+];
+
+const addOns = [
+  { name: "Analytics Dashboard", price: "1,500" },
+  { name: "Custom Chatbot", price: "2,500" },
+  { name: "Email Marketing", price: "1,000" },
+  { name: "CRM Integration", price: "2,000" },
+  { name: "CMS Setup", price: "3,000" },
+  { name: "E-commerce", price: "4,000" }
 ];
 
 export default function PricingPage() {
   return (
-    <main className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 min-h-screen">
-      <section className="pt-32 pb-20">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
+    <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 min-h-screen">
+      <section className="py-20 mt">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-16 relative"
+            className="text-center mb-16"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-indigo-600/10 to-blue-600/10 blur-3xl -z-10" />
-            <span className="inline-flex items-center gap-2 text-blue-400 font-medium mb-4 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20">
-              <Sparkles className="w-4 h-4" />
-              AI-Powered Solutions
-            </span>
-            <h1 className="text-6xl font-bold text-white mb-6 tracking-tight">
-              Scale Your Business with
-              <span className="bg-gradient-to-r from-blue-400 to-indigo-400 text-transparent bg-clip-text"> Smart Technology</span>
+            <h1 className="text-4xl font-bold text-white mb-4">
+              Transparent Pricing for Every Need
             </h1>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              From MVP to enterprise-scale solutions, we help you build and grow with cutting-edge technology
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              From simple websites to enterprise solutions, choose the package that fits your business
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-3 gap-8 mb-20">
-            {pricingTiers.map((tier, index) => (
-              <motion.div
-                key={tier.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className={`relative bg-gradient-to-br from-slate-800/80 to-slate-800/40 backdrop-blur-sm rounded-xl p-8 border ${
-                  tier.highlighted ? 'border-blue-500' : 'border-slate-700/50'
-                } hover:border-blue-500/50 transition-all group`}
-              >
-                {tier.highlighted && (
-                  <div className="absolute -top-4 left-0 right-0 text-center">
-                    <span className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
-
-                <h3 className="text-2xl font-bold text-white mb-2">{tier.name}</h3>
-                <p className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 text-transparent bg-clip-text mb-4">
-                  {tier.price}
-                </p>
-                <p className="text-gray-300 mb-8">{tier.description}</p>
-
-                <ul className="space-y-4 mb-8">
-                  {tier.features.map((feature) => (
-                    <li key={feature.name} className="flex items-center text-gray-300">
-                      <Check className={`w-5 h-5 mr-2 ${
-                        feature.included ? 'text-blue-400' : 'text-gray-600'
-                      }`} />
-                      <span className={feature.included ? '' : 'text-gray-600'}>
-                        {feature.name}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                <button className={`w-full py-3 rounded-lg ${
-                  tier.highlighted
-                    ? 'bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white'
-                    : 'border border-blue-400 text-blue-400 hover:bg-blue-400/10'
-                } transition-all flex items-center justify-center gap-2 group`}>
-                  Get Started
-                  <Zap className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="mb-20">
+          {/* Main Pricing Tiers */}
+          <div className="grid md:grid-cols-3 gap-8 mb-20">
+            {/* Basic Tier */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-slate-800/50 rounded-xl p-8 border border-slate-700"
             >
-              <h2 className="text-3xl font-bold text-white mb-4">
-                Enterprise-Grade Features
-              </h2>
-              <p className="text-gray-300 max-w-2xl mx-auto">
-                Built with scalability and performance in mind
-              </p>
+              <h2 className="text-2xl font-bold text-white mb-4">Basic Website</h2>
+              <div className="mb-6">
+                <span className="text-4xl font-bold text-white">$3,000</span>
+                <span className="text-gray-400"> - $5,000</span>
+              </div>
+              <ul className="space-y-3 mb-8">
+                {basicFeatures.map(feature => (
+                  <li key={feature} className="flex items-center text-gray-300">
+                    <Check className="h-5 w-5 text-blue-400 mr-2" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <div className="bg-slate-700/30 p-4 rounded-lg mb-6">
+                <h3 className="text-white font-semibold mb-2">Monthly Services</h3>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex justify-between text-gray-300">
+                    <span>Hosting</span>
+                    <span>$50-100/mo</span>
+                  </li>
+                  <li className="flex justify-between text-gray-300">
+                    <span>SSL Certificate</span>
+                    <span>$100/year</span>
+                  </li>
+                  <li className="flex justify-between text-gray-300">
+                    <span>Basic Maintenance</span>
+                    <span>$200/mo</span>
+                  </li>
+                </ul>
+              </div>
+              <button className="w-full py-3 border border-blue-500 text-blue-400 rounded-lg hover:bg-blue-500/10 transition-colors">
+                Get Started
+              </button>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {features.map((feature, index) => (
+            {/* Mid Tier */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-slate-800/50 rounded-xl p-8 border-2 border-blue-500 transform scale-105"
+            >
+              
+              <h2 className="text-2xl font-bold text-white mb-4">Business Solution</h2>
+              <div className="mb-6">
+                <span className="text-4xl font-bold text-white">$5,000</span>
+                <span className="text-gray-400"> - $12,000</span>
+              </div>
+              <ul className="space-y-3 mb-8">
+                {midFeatures.map(feature => (
+                  <li key={feature} className="flex items-center text-gray-300">
+                    <Check className="h-5 w-5 text-blue-400 mr-2" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <div className="bg-slate-700/30 p-4 rounded-lg mb-6">
+                <h3 className="text-white font-semibold mb-2">Monthly Services</h3>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex justify-between text-gray-300">
+                    <span>Advanced Hosting</span>
+                    <span>$150-300/mo</span>
+                  </li>
+                  <li className="flex justify-between text-gray-300">
+                    <span>Database Management</span>
+                    <span>$200/mo</span>
+                  </li>
+                  <li className="flex justify-between text-gray-300">
+                    <span>API Maintenance</span>
+                    <span>$300/mo</span>
+                  </li>
+                </ul>
+              </div>
+              <button className="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                Get Started
+              </button>
+            </motion.div>
+
+            {/* Enterprise Tier */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-slate-800/50 rounded-xl p-8 border border-slate-700"
+            >
+              <h2 className="text-2xl font-bold text-white mb-4">Enterprise Custom</h2>
+              <div className="mb-6">
+                <span className="text-4xl font-bold text-white">$15,000</span>
+                <span className="text-gray-400">+</span>
+              </div>
+              <ul className="space-y-3 mb-8">
+                {enterpriseFeatures.map(feature => (
+                  <li key={feature} className="flex items-center text-gray-300">
+                    <Check className="h-5 w-5 text-blue-400 mr-2" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <div className="bg-slate-700/30 p-4 rounded-lg mb-6">
+                <h3 className="text-white font-semibold mb-2">Monthly Services</h3>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex justify-between text-gray-300">
+                    <span>Enterprise Hosting</span>
+                    <span>$500+/mo</span>
+                  </li>
+                  <li className="flex justify-between text-gray-300">
+                    <span>24/7 Support</span>
+                    <span>$1,000+/mo</span>
+                  </li>
+                  <li className="flex justify-between text-gray-300">
+                    <span>AI Maintenance</span>
+                    <span>$1,500+/mo</span>
+                  </li>
+                </ul>
+              </div>
+              <button className="w-full py-3 border border-blue-500 text-blue-400 rounded-lg hover:bg-blue-500/10 transition-colors">
+                Contact Us
+              </button>
+            </motion.div>
+          </div>
+
+          {/* Popular Add-ons */}
+          <div className="mb-20">
+            <h2 className="text-2xl font-bold text-white mb-8 text-center">Popular Add-ons</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              {addOns.map((addon, index) => (
                 <motion.div
-                  key={feature.name}
+                  key={addon.name}
                   initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-gradient-to-br from-slate-800/80 to-slate-800/40 backdrop-blur-sm rounded-xl p-6 border border-slate-700/50 hover:border-blue-500/50 transition-all group"
+                  className="bg-slate-800/30 p-6 rounded-lg border border-slate-700"
                 >
-                  <feature.icon className="w-8 h-8 text-blue-400 mb-4" />
-                  <h3 className="text-xl font-bold text-white mb-2">{feature.name}</h3>
-                  <p className="text-gray-300 mb-4">{feature.description}</p>
-                  <ul className="space-y-2">
-                    {feature.pricing.map((item) => (
-                      <li key={item} className="text-gray-400 text-sm flex items-center">
-                        <span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                  <h3 className="text-white font-semibold mb-2">{addon.name}</h3>
+                  <p className="text-blue-400 font-bold">${addon.price}</p>
                 </motion.div>
               ))}
             </div>
           </div>
+
+          {/* CTA Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center bg-gradient-to-br from-blue-600 to-blue-800 p-12 rounded-xl"
+          >
+            <h2 className="text-3xl font-bold text-white mb-4">Ready to Get Started?</h2>
+            <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
+              Book a free consultation to discuss your project requirements and get a detailed quote.
+            </p>
+            <div className="flex justify-center gap-4">
+              <button className="px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                Schedule Consultation
+              </button>
+              <button className="px-8 py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-colors flex items-center">
+                <Mail className="mr-2 h-5 w-5" />
+                Contact Us
+              </button>
+            </div>
+          </motion.div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

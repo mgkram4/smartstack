@@ -46,6 +46,7 @@ export default function BookingCalendar({ onBookingConfirmed, selectedMeetingTyp
       const dateTime = new Date(selectedDate);
       dateTime.setHours(hour24, parseInt(minutes), 0);
 
+      // Schedule Zoom meeting
       const response = await fetch('/api/zoom', {
         method: 'POST',
         headers: {
@@ -63,6 +64,27 @@ export default function BookingCalendar({ onBookingConfirmed, selectedMeetingTyp
       }
 
       const meeting = await response.json();
+
+      // Send confirmation email
+      try {
+        await fetch('/api/confirmation', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: bookingDetails.name,
+            email: bookingDetails.email,
+            date: format(selectedDate, 'EEEE, MMMM d, yyyy'),
+            time: selectedTime,
+            meetingType: selectedMeetingType || 'Consultation',
+            joinUrl: meeting.join_url
+          }),
+        });
+      } catch (emailError) {
+        console.error('Failed to send confirmation email:', emailError);
+        // Continue with booking process even if email fails
+      }
       
       setMeetingDetails({
         joinUrl: meeting.join_url,
@@ -80,7 +102,7 @@ export default function BookingCalendar({ onBookingConfirmed, selectedMeetingTyp
       });
 
       setShowSuccess(true);
-      setTimeout(() => setShowSuccess(false), 8000); // Increased duration to 8 seconds
+      setTimeout(() => setShowSuccess(false), 8000);
     } catch (err) {
       setError('Failed to schedule meeting. Please try again.');
       console.error('Booking error:', err);
