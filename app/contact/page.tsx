@@ -1,7 +1,8 @@
 "use client"
 
 import { motion } from 'framer-motion';
-import { Calendar, Clock, Sparkles, Users, Video } from 'lucide-react';
+import { Clock, Sparkles, Users, Video } from 'lucide-react';
+import { useState } from 'react';
 import BookingCalendar from '../components/calender';
 
 interface MeetingType {
@@ -12,13 +13,6 @@ interface MeetingType {
   price: string;
   includes: string[];
 }
-
-// interface BookingCalendarProps {
-//   onBookingConfirmed: (booking: {
-//     date: Date;
-//     time: string;
-//   }) => void;
-// }
 
 const meetingTypes: MeetingType[] = [
   {
@@ -50,9 +44,11 @@ const meetingTypes: MeetingType[] = [
 ];
 
 export default function BookingPage(): JSX.Element {
+  const [selectedMeeting, setSelectedMeeting] = useState<MeetingType | null>(null);
+
   return (
     <main className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 min-h-screen">
-      <section className="pt-32 pb-20">
+      <section className="pt-20 pb-20">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -75,69 +71,86 @@ export default function BookingPage(): JSX.Element {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-20">
-            {meetingTypes.map((type, index) => (
-              <motion.div
-                key={type.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-gradient-to-br from-slate-800/80 to-slate-800/40 backdrop-blur-sm rounded-xl p-8 border border-slate-700/50 hover:border-blue-500/50 transition-all group"
-              >
-                <div className="flex items-center mb-6">
-                  <div className="p-3 bg-blue-500/10 rounded-lg mr-4">
-                    <type.icon className="w-6 h-6 text-blue-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white">{type.title}</h3>
-                    <div className="flex items-center gap-2 text-gray-400">
-                      <Clock className="w-4 h-4" />
-                      {type.duration}
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Meeting Types - Left Column */}
+            <div className="lg:col-span-1 space-y-6">
+              <h2 className="text-2xl font-bold text-white mb-6">Select Meeting Type</h2>
+              {meetingTypes.map((type, index) => (
+                <motion.div
+                  key={type.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  onClick={() => setSelectedMeeting(type)}
+                  className={`bg-gradient-to-br from-slate-800/80 to-slate-800/40 backdrop-blur-sm rounded-xl p-6 border cursor-pointer transition-all
+                    ${selectedMeeting?.title === type.title 
+                      ? 'border-blue-500 ring-2 ring-blue-500/20' 
+                      : 'border-slate-700/50 hover:border-blue-500/50'}`}
+                >
+                  <div className="flex items-center mb-4">
+                    <div className="p-3 bg-blue-500/10 rounded-lg mr-4">
+                      <type.icon className="w-6 h-6 text-blue-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-white">{type.title}</h3>
+                      <div className="flex items-center gap-2 text-gray-400">
+                        <Clock className="w-4 h-4" />
+                        {type.duration}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <p className="text-gray-300 mb-6 leading-relaxed">{type.description}</p>
+                  <p className="text-gray-300 text-sm mb-4">{type.description}</p>
 
-                {type.price && (
-                  <div className="bg-blue-500/10 rounded-lg p-4 mb-6">
-                    <p className="text-2xl font-bold text-blue-400">{type.price}</p>
-                  </div>
-                )}
+                  {type.price && (
+                    <div className="bg-blue-500/10 rounded-lg p-3 mb-4">
+                      <p className="text-xl font-bold text-blue-400">{type.price}</p>
+                    </div>
+                  )}
 
-                <ul className="space-y-4 mb-8">
-                  {type.includes.map((item) => (
-                    <li key={item} className="flex items-center text-gray-300 group-hover:text-blue-400 transition-colors">
-                      <Sparkles className="w-4 h-4 text-blue-400 mr-2" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <Calendar className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-
-                <button className="w-full py-3 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white rounded-lg transition-all flex items-center justify-center gap-2 group">
-                  Schedule Now
-                </button>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-gradient-to-br from-slate-800/80 to-slate-800/40 backdrop-blur-sm rounded-xl p-8 border border-slate-700/50"
-          >
-            <h2 className="text-2xl font-bold text-white mb-6">Select Your Preferred Time</h2>
-            <div className="h-[600px] bg-slate-900/50 rounded-lg flex items-center justify-center border border-slate-700/50">
-              <BookingCalendar 
-          onBookingConfirmed={({ date, time }: { date: Date; time: string }) => {
-            console.log('Booking confirmed:', date, time);
-          }}
-              />
+                  <ul className="space-y-2">
+                    {type.includes.map((item) => (
+                      <li key={item} className="flex items-center text-sm text-gray-300">
+                        <Sparkles className="w-4 h-4 text-blue-400 mr-2 flex-shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
             </div>
-          </motion.div>
+
+            {/* Calendar - Right Column */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="lg:col-span-2 bg-gradient-to-br from-slate-800/80 to-slate-800/40 backdrop-blur-sm rounded-xl p-8 border border-slate-700/50"
+            >
+              {selectedMeeting ? (
+                <>
+                  <div className="mb-6">
+                    <h2 className="text-2xl font-bold text-white">Schedule Your {selectedMeeting.title}</h2>
+                    <p className="text-gray-400">Select your preferred date and time</p>
+                  </div>
+                  <BookingCalendar
+                    selectedMeetingType={selectedMeeting.title}
+                    onBookingConfirmed={({ date, time }) => {
+                      console.log('Booking confirmed:', date, time);
+                    }}
+                  />
+                </>
+              ) : (
+                <div className="h-full flex items-center justify-center text-center p-8">
+                  <div className="max-w-md">
+                    <h3 className="text-xl font-bold text-white mb-3">Choose a Meeting Type</h3>
+                    <p className="text-gray-400">Select a meeting type from the left to continue with your booking</p>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </div>
         </div>
       </section>
     </main>

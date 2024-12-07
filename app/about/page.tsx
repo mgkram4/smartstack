@@ -6,10 +6,10 @@ import Image from 'next/image';
 
 const AboutPage = () => {
   const achievements = [
-    { number: "90+", label: "Tech Talks Delivered", icon: BookOpen },
-    { number: "700+", label: "Projects Completed", icon: Code },
-    { number: "1500+", label: "Students Mentored", icon: Rocket },
-    { number: "5+", label: "Hackathon Wins", icon: Trophy }
+    { number: "14+", label: "Tech Talks Delivered", icon: BookOpen },
+    { number: "80+", label: "Projects Completed", icon: Code },
+    { number: "60+", label: "Students Mentored", icon: Rocket },
+    { number: "1+", label: "Hackathon Wins", icon: Trophy }
   ];
 
   const expertise = [
